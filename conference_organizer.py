@@ -2,6 +2,7 @@
 
 import requests
 from pprint import pprint
+import datetime 
 
 
 class Person: 
@@ -38,14 +39,40 @@ class Conference_Org():
                 lastname = partner["lastName"],
                 email = partner["email"],
                 country = partner["country"],
-                availability = partner["availableDates"]
+                # This is a list of datetime objects and calls function which shows its date. Datetime sucks.
+                availability = [datetime.datetime.strptime(date, '%Y-%m-%d').date() for date in partner["availableDates"]]
             )
             for k in self.address_book.keys(): 
                 if k == p.country:
                     self.address_book[k].append(p)
 
-                
 
 
+#*** Getting to the Availability Lists  
+# Loop through the attributes of each person in each country to find the lists of available dates 
+    # address_book --> country --> person object --> availability list
+#TODO Code to redesign for this task
+# delta = datetime.timedelta(days=1)
 
+# for index, days in enumerate(person2[:-1]):
+#     if person2[index + 1] - person2[index] == delta:
+#         tups[person1[index], person1[index+1]] = []
+#         tups[person1[index], person1[index+1].append(person1)
+#     else: 
+#         pass
 
+#*** Finding and storing the Date-Pairs (maybe populating attendees as well?) 
+#  Date-Pairs-By-Country: { 
+#            "United States": {(date-pair): [person objects who have this availability]
+#                              (date-pair): [person objects who have this availability]}
+#           "United Kingdom": {(date-pair): [person objects who have this availability]
+#                              (date-pair): [person objects who have this availability]}
+#                           }
+# From these lists we construct a dictionary of date-pairs in the lists (organized by country)
+    # UK --> {opt1: [], opt: []} (We would need to make sure these tuples for the date-pairs are not added multiple times)
+# I wonder if there is a way to add the person to the list at the same time as constructing the key and value? 
+
+#*** Picking the right date-pair for each country and constructing the Post Request
+# Compare the lengths of the lists to determine which date pair contains the most partners in each country
+# Construct a dictionary from this information with start date, country, and attendees emails
+# Do something to check it with the API?
