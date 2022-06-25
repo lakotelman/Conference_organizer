@@ -21,3 +21,16 @@
 # Compare the lengths of the lists to determine which date pair contains the most partners in each country
 # Construct a dictionary from this information with start date, country, and attendees emails
 # Do something to check it with the API?
+
+{"data" : [ { "attendeeCount": 1,
+            "attendees": [
+                "email",
+            ],
+            "name": "country",
+            "startDate": "string date",
+}
+
+
+
+]
+}
